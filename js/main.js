@@ -57,6 +57,12 @@
   }
 
   function initDemoModal() {
+    const mailto =
+      'mailto:' +
+      SUPPORT_EMAIL +
+      '?subject=' +
+      encodeURIComponent('Book a meeting');
+
     const root = document.createElement('div');
     root.className = 'demo-modal';
     root.id = 'demo-modal';
@@ -68,60 +74,35 @@
       '<div class="demo-modal__dialog" role="document">' +
       '<button type="button" class="demo-modal__close" data-demo-close aria-label="Close">&times;</button>' +
       '<div class="demo-modal__header">' +
-      '<span class="demo-modal__badge">Demo meeting</span>' +
-      '<h2 id="demo-modal-title" class="demo-modal__title">Book a demo with VidSpring</h2>' +
-      '<p class="demo-modal__lead">Tell us about your product and ad-video goals. We&rsquo;ll schedule a short call to understand your needs and walk you through how VidSpring directs, generates, and tests your creatives.</p>' +
+      '<span class="demo-modal__badge">Book a demo</span>' +
+      '<h2 id="demo-modal-title" class="demo-modal__title">Email us to book a meeting</h2>' +
+      '<p class="demo-modal__lead">Please send us an email to schedule a demo. Briefly share your product and what you&rsquo;d like to achieve with ad video&mdash;we&rsquo;ll reply to set up a call.</p>' +
       '</div>' +
-      '<div class="demo-modal__expect">' +
-      '<p class="demo-modal__expect-title">What to expect</p>' +
-      '<ul class="demo-modal__expect-list">' +
-      '<li>A focused 20&ndash;30 minute session with our team</li>' +
-      '<li>Discovery of your workflow, channels, and volume targets</li>' +
-      '<li>A tailored walkthrough and guidance on getting started</li>' +
-      '</ul>' +
-      '</div>' +
-      '<form class="demo-modal__form" id="demo-modal-form" novalidate>' +
-      '<div class="demo-modal__field">' +
-      '<label for="demo-name">Your name <span>(required)</span></label>' +
-      '<input id="demo-name" name="name" type="text" autocomplete="name" required placeholder="Jane Smith">' +
-      '</div>' +
-      '<div class="demo-modal__field">' +
-      '<label for="demo-email">Work email <span>(required)</span></label>' +
-      '<input id="demo-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com">' +
-      '</div>' +
-      '<div class="demo-modal__field">' +
-      '<label for="demo-company">Company or product URL <span>(optional)</span></label>' +
-      '<input id="demo-company" name="company" type="text" autocomplete="organization" placeholder="Acme / https://example.com">' +
-      '</div>' +
-      '<div class="demo-modal__field">' +
-      '<label for="demo-goals">What are you hoping to achieve? <span>(optional)</span></label>' +
-      '<textarea id="demo-goals" name="goals" placeholder="e.g. Weekly TikTok ad tests, more script variants, faster turnaround from brief to upload-ready video"></textarea>' +
-      '</div>' +
-      '</form>' +
-      '<p class="demo-modal__hint">Submitting opens your email app with a pre-filled message to ' +
+      '<div class="demo-modal__email-box">' +
+      '<p class="demo-modal__email-label">Email</p>' +
+      '<a class="demo-modal__email-link" href="' +
+      mailto +
+      '">' +
       SUPPORT_EMAIL +
-      '. We typically reply within one business day to confirm your meeting time.</p>' +
+      '</a>' +
+      '<p class="demo-modal__email-subject">Suggested subject: <strong>Book a meeting</strong></p>' +
+      '</div>' +
       '<div class="demo-modal__actions">' +
-      '<button type="button" class="demo-modal__btn demo-modal__btn--ghost" data-demo-close>Cancel</button>' +
-      '<button type="submit" form="demo-modal-form" class="demo-modal__btn demo-modal__btn--primary">Send demo request</button>' +
+      '<button type="button" class="demo-modal__btn demo-modal__btn--primary" data-demo-close>Got it</button>' +
       '</div>' +
       '</div>';
 
     document.body.appendChild(root);
 
-    const form = root.querySelector('#demo-modal-form');
-    const nameInput = root.querySelector('#demo-name');
-    const emailInput = root.querySelector('#demo-email');
-    const companyInput = root.querySelector('#demo-company');
-    const goalsInput = root.querySelector('#demo-goals');
     let lastTrigger = null;
+    const gotItBtn = root.querySelector('.demo-modal__btn--primary');
 
     function openModal(trigger) {
       lastTrigger = trigger || null;
       root.classList.add('is-open');
       root.setAttribute('aria-hidden', 'false');
       document.body.classList.add('demo-modal-open');
-      window.setTimeout(() => nameInput.focus(), 50);
+      window.setTimeout(() => gotItBtn.focus(), 50);
     }
 
     function closeModal() {
@@ -131,44 +112,6 @@
       if (lastTrigger && typeof lastTrigger.focus === 'function') {
         lastTrigger.focus();
       }
-    }
-
-    function buildMailto() {
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      const company = companyInput.value.trim();
-      const goals = goalsInput.value.trim();
-
-      const subject = 'VidSpring demo request' + (company ? ' – ' + company : name ? ' – ' + name : '');
-
-      const lines = [
-        'Hello VidSpring team,',
-        '',
-        'I would like to book a demo meeting.',
-        '',
-        'Name: ' + name,
-        'Email: ' + email,
-      ];
-      if (company) lines.push('Company / product: ' + company);
-      if (goals) {
-        lines.push('', 'Goals & context:', goals);
-      }
-      lines.push(
-        '',
-        'Please let me know available times for a walkthrough. I understand the session will cover my use case and how to get started with VidSpring.',
-        '',
-        'Thank you,',
-        name
-      );
-
-      return (
-        'mailto:' +
-        SUPPORT_EMAIL +
-        '?subject=' +
-        encodeURIComponent(subject) +
-        '&body=' +
-        encodeURIComponent(lines.join('\n'))
-      );
     }
 
     document.querySelectorAll('[data-demo]').forEach((el) => {
@@ -192,16 +135,6 @@
         e.preventDefault();
         closeModal();
       }
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      window.location.href = buildMailto();
-      window.setTimeout(closeModal, 300);
     });
   }
 

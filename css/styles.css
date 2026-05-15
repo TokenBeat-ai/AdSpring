@@ -414,8 +414,8 @@ body {
 .demo-modal__dialog {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  max-height: min(90vh, 720px);
+  max-width: 440px;
+  max-height: min(90vh, 520px);
   overflow: auto;
   border-radius: 20px;
   border: 1px solid #e5e7eb;
@@ -462,16 +462,17 @@ body {
   color: #4b5563;
 }
 
-.demo-modal__expect {
+.demo-modal__email-box {
   margin: 16px 24px 0;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 12px;
   border: 1px solid #f3f4f6;
   background: #fafaf9;
+  text-align: center;
 }
 
-.demo-modal__expect-title {
-  margin: 0 0 8px;
+.demo-modal__email-label {
+  margin: 0 0 6px;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -479,71 +480,28 @@ body {
   color: #6b7280;
 }
 
-.demo-modal__expect-list {
-  margin: 0;
-  padding-left: 18px;
+.demo-modal__email-link {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 700;
+  color: #c2410c;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.demo-modal__email-link:hover {
+  text-decoration: underline;
+}
+
+.demo-modal__email-subject {
+  margin: 12px 0 0;
   font-size: 14px;
-  line-height: 1.55;
-  color: #374151;
-}
-
-.demo-modal__expect-list li + li {
-  margin-top: 4px;
-}
-
-.demo-modal__form {
-  padding: 18px 24px 0;
-}
-
-.demo-modal__field {
-  margin-bottom: 14px;
-}
-
-.demo-modal__field label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
-}
-
-.demo-modal__field label span {
-  font-weight: 500;
-  color: #9ca3af;
-}
-
-.demo-modal__field input,
-.demo-modal__field textarea {
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 15px;
-  font-family: inherit;
-  color: #111827;
-  background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.demo-modal__field input:focus,
-.demo-modal__field textarea:focus {
-  outline: none;
-  border-color: rgba(255, 107, 53, 0.55);
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
-}
-
-.demo-modal__field textarea {
-  min-height: 96px;
-  resize: vertical;
-}
-
-.demo-modal__hint {
-  margin: 0 24px;
-  padding-top: 4px;
-  font-size: 12px;
   line-height: 1.5;
-  color: #6b7280;
+  color: #4b5563;
+}
+
+.demo-modal__email-subject strong {
+  color: #111827;
 }
 
 .demo-modal__actions {
