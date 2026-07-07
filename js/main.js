@@ -1,5 +1,5 @@
 (function () {
-  const SUPPORT_EMAIL = 'support@vidspring.ai';
+  const SUPPORT_EMAIL = 'support@adspring.ai';
   const CONTACT = 'mailto:' + SUPPORT_EMAIL;
 
   document.querySelectorAll('[data-contact]').forEach((el) => {
@@ -140,11 +140,11 @@
 
   function initHeroLoop(loopRoot) {
     const steps = [
-      { src: 'assets/vidspring/hero-workflow/vs-cycle-03-patterns.jpg', label: 'Deconstruct patterns', short: 'Patterns' },
-      { src: 'assets/vidspring/hero-workflow/vs-cycle-04-scripts.jpg', label: 'Draft script variants', short: 'Scripts', nowrap: true },
-      { src: 'assets/vidspring/hero-workflow/vs-cycle-05-delivery.jpg', label: 'Deliver live-ready ads', short: 'Launch' },
-      { src: 'assets/vidspring/hero-workflow/vs-cycle-01-positioning.jpg', label: 'Extract positioning', short: 'Position', nowrap: true },
-      { src: 'assets/vidspring/hero-workflow/vs-cycle-02-research.jpg', label: 'Source viral references', short: 'Research' },
+      { src: 'assets/adspring/hero-workflow/vs-cycle-03-patterns.jpg', label: 'Deconstruct patterns', short: 'Patterns' },
+      { src: 'assets/adspring/hero-workflow/vs-cycle-04-scripts.jpg', label: 'Draft script variants', short: 'Scripts', nowrap: true },
+      { src: 'assets/adspring/hero-workflow/vs-cycle-05-delivery.jpg', label: 'Deliver live-ready ads', short: 'Launch' },
+      { src: 'assets/adspring/hero-workflow/vs-cycle-01-positioning.jpg', label: 'Extract positioning', short: 'Position', nowrap: true },
+      { src: 'assets/adspring/hero-workflow/vs-cycle-02-research.jpg', label: 'Source viral references', short: 'Research' },
     ];
 
     const VB = 400;

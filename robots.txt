@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vidspring.ai/sitemap.xml
+Sitemap: https://adspring.ai/sitemap.xml
