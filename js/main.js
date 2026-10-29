@@ -1,12 +1,26 @@
 (function () {
   const SUPPORT_EMAIL = 'support@adspring.ai';
   const CONTACT = 'mailto:' + SUPPORT_EMAIL;
+  const DEMO_URL = 'https://calendly.com/adspring_ai/demo';
 
   document.querySelectorAll('[data-contact]').forEach((el) => {
     el.setAttribute('href', CONTACT);
   });
 
-  initDemoModal();
+  document.querySelectorAll('[data-demo]').forEach((el) => {
+    el.setAttribute('href', DEMO_URL);
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener');
+    el.addEventListener('click', () => {
+      if (typeof window.gtag !== 'function') return;
+      const section = el.closest('header') ? 'header' : el.closest('section[id]')?.id || 'page';
+      window.gtag('event', 'book_demo_click', {
+        button_text: el.textContent.trim(),
+        page_path: window.location.pathname,
+        section,
+      });
+    });
+  });
 
   const carousel = document.querySelector('[data-hero-carousel]');
   if (carousel) {
@@ -54,88 +68,6 @@
   const loopRoot = document.querySelector('[data-hero-loop]');
   if (loopRoot) {
     initHeroLoop(loopRoot);
-  }
-
-  function initDemoModal() {
-    const mailto =
-      'mailto:' +
-      SUPPORT_EMAIL +
-      '?subject=' +
-      encodeURIComponent('Book a meeting');
-
-    const root = document.createElement('div');
-    root.className = 'demo-modal';
-    root.id = 'demo-modal';
-    root.setAttribute('role', 'dialog');
-    root.setAttribute('aria-modal', 'true');
-    root.setAttribute('aria-labelledby', 'demo-modal-title');
-    root.setAttribute('aria-hidden', 'true');
-    root.innerHTML =
-      '<div class="demo-modal__dialog" role="document">' +
-      '<button type="button" class="demo-modal__close" data-demo-close aria-label="Close">&times;</button>' +
-      '<div class="demo-modal__header">' +
-      '<span class="demo-modal__badge">Book a demo</span>' +
-      '<h2 id="demo-modal-title" class="demo-modal__title">Email us to book a meeting</h2>' +
-      '<p class="demo-modal__lead">Please send us an email to schedule a demo. Briefly share your product and what you&rsquo;d like to achieve with ad video&mdash;we&rsquo;ll reply to set up a call.</p>' +
-      '</div>' +
-      '<div class="demo-modal__email-box">' +
-      '<p class="demo-modal__email-label">Email</p>' +
-      '<a class="demo-modal__email-link" href="' +
-      mailto +
-      '">' +
-      SUPPORT_EMAIL +
-      '</a>' +
-      '<p class="demo-modal__email-subject">Suggested subject: <strong>Book a meeting</strong></p>' +
-      '</div>' +
-      '<div class="demo-modal__actions">' +
-      '<button type="button" class="demo-modal__btn demo-modal__btn--primary" data-demo-close>Got it</button>' +
-      '</div>' +
-      '</div>';
-
-    document.body.appendChild(root);
-
-    let lastTrigger = null;
-    const gotItBtn = root.querySelector('.demo-modal__btn--primary');
-
-    function openModal(trigger) {
-      lastTrigger = trigger || null;
-      root.classList.add('is-open');
-      root.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('demo-modal-open');
-      window.setTimeout(() => gotItBtn.focus(), 50);
-    }
-
-    function closeModal() {
-      root.classList.remove('is-open');
-      root.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('demo-modal-open');
-      if (lastTrigger && typeof lastTrigger.focus === 'function') {
-        lastTrigger.focus();
-      }
-    }
-
-    document.querySelectorAll('[data-demo]').forEach((el) => {
-      el.setAttribute('href', '#book-demo');
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal(el);
-      });
-    });
-
-    root.querySelectorAll('[data-demo-close]').forEach((btn) => {
-      btn.addEventListener('click', closeModal);
-    });
-
-    root.addEventListener('click', (e) => {
-      if (e.target === root) closeModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && root.classList.contains('is-open')) {
-        e.preventDefault();
-        closeModal();
-      }
-    });
   }
 
   function initHeroLoop(loopRoot) {
